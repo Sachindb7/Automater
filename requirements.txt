@@ -1,5 +1,6 @@
 google-generativeai
-moviepy
+moviepy==1.0.3
+decorator==4.4.2
 python-dotenv
 Pillow
 google-auth
