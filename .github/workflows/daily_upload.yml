@@ -4,7 +4,7 @@ on:
   schedule:
     # India Time: 7:00 PM IST = 1:30 PM UTC
     # Cron format: Minute Hour * * *
-    - cron: '30 15 * * *'
+    - cron: '30 14 * * *'
   workflow_dispatch: # Manual button ke liye
 
 jobs:
