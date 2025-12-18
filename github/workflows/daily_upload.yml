@@ -1,0 +1,38 @@
+name: Daily Shorts Uploader
+
+on:
+  schedule:
+    # India Time: 7:00 PM IST = 1:30 PM UTC
+    # Cron format: Minute Hour * * *
+    - cron: '30 13 * * *'
+  workflow_dispatch: # Manual button ke liye
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Create Auth Files from Secrets
+        # Secrets se file wapis generate kar rahe hain
+        run: |
+          echo '${{ secrets.CLIENT_SECRETS_JSON }}' > client_secrets.json
+          echo '${{ secrets.TOKEN_JSON }}' > token.json
+
+      - name: Run Viral Bot
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python viral_short_v3.py
