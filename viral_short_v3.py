@@ -164,7 +164,14 @@ def create_video():
     data, theme = get_dynamic_content()
     
     if not data:
-        data = {"HOOK": "Error", "BODY": "Try again later", "TITLE": "Error", "DESCRIPTION": "", "TAGS": ""}
+        print("⚠️ AI Data Failed! Using Fallback Content.")
+        data = {
+            "HOOK": "Never forget this...",
+            "BODY": "Consistency is what transforms average into excellence.",
+            "TITLE": "The Secret to Success 💯 #shorts",
+            "DESCRIPTION": "Daily motivation for you. Keep grinding! #discipline #growth #mindset",
+            "TAGS": "motivation, discipline, hustle, viral, shorts"
+        }
 
     img_path = create_styled_image(data["HOOK"], data["BODY"])
     
