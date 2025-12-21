@@ -42,26 +42,76 @@ SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 
 # -------- STEP 1: Generate Content & Metadata --------
 def get_dynamic_content():
-    print("🤖 AI Thinking... Generating Script & Metadata...")
+    print("🤖 AI Thinking... Generating Simple & Brutal Content...")
     
     genai.configure(api_key=GEMINI_API_KEY)
     model = genai.GenerativeModel("gemini-2.5-flash")
 
-    themes = ["Stoic Reality", "Harsh Truths", "Discipline", "Focus", "Men's Growth", "Financial Freedom", "Lone Wolf Mindset", "Psychology Facts"]
-    theme = random.choice(themes)
+    # --- 70% WEALTH & SUCCESS TOPICS ---
+    financial_themes = [
+        "Escaping the 9-5 Matrix", 
+        "Salary is a Trap", 
+        "Poor vs Rich Mindset", 
+        "Assets vs Liabilities", 
+        "Inflation Steals Your Money",
+        "The Rule of the 1%",
+        "Why You Are Still Broke",
+        "Business vs Job",
+        "Financial Discipline"
+    ]
+
+    # --- 30% DARK TRUTHS & PSYCHOLOGY TOPICS ---
+    dark_themes = [
+        "Dark Psychology of Power", 
+        "Why Being Nice Fails", 
+        "Trust Nobody", 
+        "Cold Stoicism", 
+        "Female Nature (Red Pill)",
+        "Loneliness of Success",
+        "Control Your Emotions"
+    ]
+
+    # PROBABILITY LOGIC: 70% chance for Finance, 30% for Dark
+    if random.random() < 0.70:
+        theme = random.choice(financial_themes)
+        category = "WEALTH"
+    else:
+        theme = random.choice(dark_themes)
+        category = "TRUTH"
 
     prompt = f"""
-    You are a YouTube Viral Strategist. Generate content for a Short about: {theme}.
-    
-    Strictly follow this output format (5 parts):
-    HOOK: [Ultra-suspenseful intro, max 6 words,
-    eg. Nobody told me that... , It hit me hard when i realized...,This won't make sense until..
-    (use similar to this type , dont use same and dont use similar too everytime this are just a few examples)
-    ]
-    BODY: [Deep punchy line, max 10 words]
-    TITLE: [Clickbait Title for YouTube Shorts, max 60 chars, include 1-2 emoji, 2-3 HASHTAGS in title]
-    DESCRIPTION: [3-5 sentences explaining deeper meaning. Add 5-6 unique hashtags.]
-    TAGS: [List of 20-30 comma-separated high-traffic keywords]
+    You are a Ruthless Billionaire Mentor (Andrew Tate style).
+    Theme: {theme}
+    Category: {category}
+
+    ### CRITICAL RULE (LANGUAGE):
+    ❌ NO BIG WORDS (e.g., Masquerading, Inevitable, Masquerade).
+    ✅ USE SIMPLE STREET ENGLISH (e.g., Faking, Real, Trap, Lie).
+    Make it punchy. A 10-year-old should feel the pain of the truth.
+
+    ### THE FLOW (Cliffhanger + Slap):
+    HOOK: A suspended sentence. Make them curious. (e.g., "The bank is lying...", "Stop being kind...")
+    BODY: The brutal punchline.
+
+    ### EXAMPLES (Simple English):
+    (Wealth):
+    Hook: You will stay poor if...
+    Body: You keep buying things to impress people.
+
+    (Wealth):
+    Hook: A salary is just a bribe...
+    Body: To make you forget your dreams.
+
+    (Dark Truth):
+    Hook: People don't respect kindness...
+    Body: They respect power and money.
+
+    ### OUTPUT FORMAT (Strictly 5 parts):
+    HOOK: [Max 7 words. Simple English. End with "..."]
+    BODY: [Max 12 words. Harsh truth. Simple words.]
+    TITLE: [Clickbait Title, max 60 chars, 1 emoji, NO hashtags]
+    DESCRIPTION: [2 lines explaining the lesson. Add 5-6 hashtags.]
+    TAGS: [20 high-traffic keywords: money, business, sigma, rich, motivation]
     """
 
     try:
@@ -70,11 +120,11 @@ def get_dynamic_content():
         
         # Default Fail-safe
         data = {
-            "HOOK": "Wait for it...",
-            "BODY": "Work hard in silence.",
-            "TITLE": f"This changed my life 🤯",
-            "DESCRIPTION": f"Subscribe for more! #motivation #{theme.replace(' ', '')}",
-            "TAGS": "motivation, discipline, growth, viral"
+            "HOOK": "Stop trusting your friends...",
+            "BODY": "They secretly want you to fail.",
+            "TITLE": f"Trust No One 👁️",
+            "DESCRIPTION": f"Focus on yourself. #billionaire #truth #{theme.replace(' ', '')}",
+            "TAGS": "motivation, dark psychology, business, sigma, viral"
         }
 
         lines = text.split('\n')
@@ -102,7 +152,9 @@ def get_dynamic_content():
             elif current_key == "DESCRIPTION": 
                 data["DESCRIPTION"] += "\n" + line
 
+        print(f"🔹 Theme: {theme}")
         print(f"🔹 Hook: {data['HOOK']}")
+        print(f"🔹 Body: {data['BODY']}")
         return data, theme
 
     except Exception as e:
