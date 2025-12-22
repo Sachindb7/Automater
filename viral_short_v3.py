@@ -109,9 +109,9 @@ def get_dynamic_content():
     ### OUTPUT FORMAT (Strictly 5 parts):
     HOOK: [Max 7 words. Simple English. End with "..."]
     BODY: [Max 12 words. Harsh truth. Simple words.]
-    TITLE: [Clickbait Title, max 60 chars, 1 emoji, NO hashtags]
+    TITLE: [Clickbait Title, max 60 chars, 2-3 emoji, 2-4 hashtags]
     DESCRIPTION: [2 lines explaining the lesson. Add 5-6 hashtags.]
-    TAGS: [20 high-traffic keywords: money, business, sigma, rich, motivation]
+    TAGS: [25-30 high-traffic keywords/search-intent keywords too : money, business, sigma, rich, motivation]
     """
 
     try:
