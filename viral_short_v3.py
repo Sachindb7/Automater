@@ -123,8 +123,8 @@ If the body only makes the viewer feel bad, rewrite it.
 It must push action, not guilt.
 
 ### OUTPUT FORMAT (STRICT – 5 PARTS ONLY):
-HOOK: [Max 5-7 words. End with "..."]
-BODY: [Max 10-12 words. Actionable or reflective.]
+HOOK: [Max 5-6 words(strictly). End with "..."]
+BODY: [Max 10 words. Actionable or reflective.]
 TITLE: [Max 60 chars, 2–3 emojis, 2–4 hashtags]
 DESCRIPTION: [2 short lines. Add 5–6 hashtags.]
 TAGS: [25–30 high-traffic keywords: motivation, discipline, success, mindset, growth]
