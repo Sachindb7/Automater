@@ -100,7 +100,7 @@ BODY: A realization or action that helps growth.
 - It hit me when I realized…
 - Nobody told me that…
 - You won’t get it until you notice…
-- Tthing changed the moment I learned…
+- Things changed the moment I learned…
 - This might hurt a bit…
 - You won’t unhear this…
 - Wait till you realise that…
@@ -258,26 +258,6 @@ def create_video():
     print(f"✅ Video Ready: {OUTPUT_FILE}")
     
     return data
-
-# -------- STEP 4: YouTube Upload --------
-def authenticate_youtube():
-    creds = None
-    if os.path.exists("token.json"):
-        creds = Credentials.from_authorized_user_file("token.json", SCOPES)
-    
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                "client_secrets.json", SCOPES
-            )
-            creds = flow.run_local_server(port=0)
-        
-        with open("token.json", "w") as token:
-            token.write(creds.to_json())
-            
-    return build("youtube", "v3", credentials=creds)
 
 # -------- STEP 4: YouTube Upload --------
 def authenticate_youtube():
