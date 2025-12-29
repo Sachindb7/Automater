@@ -42,98 +42,114 @@ SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 
 # -------- STEP 1: Generate Content & Metadata --------
 def get_dynamic_content():
-    print("🤖 AI Thinking... Generating Simple & Brutal Content...")
-    
+    print("🤖 AI Thinking... Generating Cliffhanger + Growth Content...")
+
     genai.configure(api_key=GEMINI_API_KEY)
     model = genai.GenerativeModel("gemini-2.5-flash")
 
-    # --- 70% WEALTH & SUCCESS TOPICS ---
     financial_themes = [
-        "Escaping the 9-5 Matrix", 
-        "Salary is a Trap", 
-        "Poor vs Rich Mindset", 
-        "Assets vs Liabilities", 
-        "Inflation Steals Your Money",
-        "The Rule of the 1%",
-        "Why You Are Still Broke",
-        "Business vs Job",
-        "Financial Discipline"
+        "Starting Before You Feel Ready",
+        "Consistency Beats Motivation",
+        "Discipline Over Talent",
+        "Long Term Thinking",
+        "Work Ethic",
+        "Focus and Execution",
+        "Building Momentum",
+        "Delayed Gratification"
     ]
 
-    # --- 30% DARK TRUTHS & PSYCHOLOGY TOPICS ---
     dark_themes = [
-        "Dark Psychology of Power", 
-        "Why Being Nice Fails", 
-        "Trust Nobody", 
-        "Cold Stoicism", 
-        "Female Nature (Red Pill)",
-        "Loneliness of Success",
-        "Control Your Emotions"
+        "Personal Responsibility",
+        "Hard Truths About Progress",
+        "Why Most People Quit",
+        "Comfort vs Growth",
+        "Self Control",
+        "Facing Reality"
     ]
 
-    # PROBABILITY LOGIC: 70% chance for Finance, 30% for Dark
-    if random.random() < 0.70:
+    if random.random() < 0.65:
         theme = random.choice(financial_themes)
-        category = "WEALTH"
+        category = "GROWTH"
     else:
         theme = random.choice(dark_themes)
         category = "TRUTH"
 
     prompt = f"""
-    You are a Ruthless Billionaire Mentor (Andrew Tate style).
-    Theme: {theme}
-    Category: {category}
+You are a calm but brutally honest mentor.
+You challenge the viewer without hate, insults, or shaming.
+Your goal is to push action, not guilt.
 
-    ### CRITICAL RULE (LANGUAGE):
-    ❌ NO BIG WORDS (e.g., Masquerading, Inevitable, Masquerade).
-    ✅ USE SIMPLE STREET ENGLISH (e.g., Faking, Real, Trap, Lie).
-    Make it punchy. A 10-year-old should feel the pain of the truth.
+Theme: {theme}
+Category: {category}
 
-    ### THE FLOW (Cliffhanger + Slap):
-    HOOK: A suspended sentence. Make them curious. (e.g., "The bank is lying...", "Stop being kind...")
-    BODY: The brutal punchline.
+### CRITICAL RULES (LANGUAGE):
+❌ NO big words.
+❌ NO hate, insults, or blaming language.
+❌ Do NOT use words like trap, scam, lie, bribe.
+✅ Use simple, clear, direct English.
 
-    ### EXAMPLES (Simple English):
-    (Wealth):
-    Hook: You will stay poor if...
-    Body: You keep buying things to impress people.
+### TONE RULE:
+Hooks can be intense, emotional, or painful.
+Body must be grounded, constructive, and growth-focused.
 
-    (Wealth):
-    Hook: A salary is just a bribe...
-    Body: To make you forget your dreams.
+### THE FLOW (Cliffhanger + Direction):
+HOOK: Strong emotional cliffhanger that stops scrolling.
+BODY: A realization or action that helps growth.
 
-    (Dark Truth):
-    Hook: People don't respect kindness...
-    Body: They respect power and money.
+### HOOK STYLE (STRICT – follow this pattern):
+- It hit me when I realized…
+- Nobody told me that…
+- You won’t get it until you notice…
+- Everything changed the moment I learned…
+- This might hurt a bit…
+- You won’t unhear this…
+- Wait till you realise that…
+- Here’s the part nobody talks about…
+- I never understood it until…
+- This one stings when you think about…
 
-    ### OUTPUT FORMAT (Strictly 5 parts):
-    HOOK: [Max 7 words. Simple English. End with "..."]
-    BODY: [Max 12 words. Harsh truth. Simple words.]
-    TITLE: [Clickbait Title, max 60 chars, 2-3 emoji, 2-4 hashtags]
-    DESCRIPTION: [2 lines explaining the lesson. Add 5-6 hashtags.]
-    TAGS: [25-30 high-traffic keywords/search-intent keywords too : money, business, sigma, rich, motivation]
-    """
+### EXAMPLES (STYLE REFERENCE):
+Hook: This might hurt a bit…
+Body: Comfort delays the life you want.
+
+Hook: Nobody told me that…
+Body: Starting messy beats waiting perfect.
+
+Hook: It hit different when I realised…
+Body: Discipline beats motivation every time.
+
+### BODY SAFETY RULE:
+If the body only makes the viewer feel bad, rewrite it.
+It must push action, not guilt.
+
+### OUTPUT FORMAT (STRICT – 5 PARTS ONLY):
+HOOK: [Max 7 words. End with "..."]
+BODY: [Max 12 words. Actionable or reflective.]
+TITLE: [Max 60 chars, 2–3 emojis, 2–4 hashtags]
+DESCRIPTION: [2 short lines. Add 5–6 hashtags.]
+TAGS: [25–30 high-traffic keywords: motivation, discipline, success, mindset, growth]
+"""
 
     try:
         response = model.generate_content(prompt)
         text = response.text.strip()
-        
-        # Default Fail-safe
+
         data = {
-            "HOOK": "Stop trusting your friends...",
-            "BODY": "They secretly want you to fail.",
-            "TITLE": f"Trust No One 👁️",
-            "DESCRIPTION": f"Focus on yourself. #billionaire #truth #{theme.replace(' ', '')}",
-            "TAGS": "motivation, dark psychology, business, sigma, viral"
+            "HOOK": "This might hurt a bit...",
+            "BODY": "Growth starts when comfort ends.",
+            "TITLE": "This One Stings 💭 #mindset",
+            "DESCRIPTION": "A reminder you needed today.\n#growth #discipline #mindset #motivation",
+            "TAGS": "motivation, mindset, discipline, growth, success, shorts, self improvement"
         }
 
         lines = text.split('\n')
         current_key = None
-        
+
         for line in lines:
             line = line.strip()
-            if not line: continue
-            
+            if not line:
+                continue
+
             if line.startswith("HOOK:"):
                 current_key = "HOOK"
                 data["HOOK"] = line.replace("HOOK:", "").strip()
@@ -149,17 +165,19 @@ def get_dynamic_content():
             elif line.startswith("TAGS:"):
                 current_key = "TAGS"
                 data["TAGS"] = line.replace("TAGS:", "").strip()
-            elif current_key == "DESCRIPTION": 
+            elif current_key == "DESCRIPTION":
                 data["DESCRIPTION"] += "\n" + line
 
         print(f"🔹 Theme: {theme}")
         print(f"🔹 Hook: {data['HOOK']}")
         print(f"🔹 Body: {data['BODY']}")
+
         return data, theme
 
     except Exception as e:
         print(f"❌ API Error: {e}")
         return None, theme
+
 
 # -------- STEP 2: Create the Image --------
 def create_styled_image(hook_text, body_text):
