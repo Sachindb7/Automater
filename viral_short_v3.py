@@ -100,7 +100,7 @@ BODY: A realization or action that helps growth.
 - It hit me when I realized…
 - Nobody told me that…
 - You won’t get it until you notice…
-- Everything changed the moment I learned…
+- Tthing changed the moment I learned…
 - This might hurt a bit…
 - You won’t unhear this…
 - Wait till you realise that…
@@ -123,8 +123,8 @@ If the body only makes the viewer feel bad, rewrite it.
 It must push action, not guilt.
 
 ### OUTPUT FORMAT (STRICT – 5 PARTS ONLY):
-HOOK: [Max 7 words. End with "..."]
-BODY: [Max 12 words. Actionable or reflective.]
+HOOK: [Max 5-7 words. End with "..."]
+BODY: [Max 10-12 words. Actionable or reflective.]
 TITLE: [Max 60 chars, 2–3 emojis, 2–4 hashtags]
 DESCRIPTION: [2 short lines. Add 5–6 hashtags.]
 TAGS: [25–30 high-traffic keywords: motivation, discipline, success, mindset, growth]
@@ -216,7 +216,7 @@ def create_styled_image(hook_text, body_text):
         line_heights.append(h)
 
     # Start Position: 40% of Height (approx 768px)
-    current_y = int(VIDEO_SIZE[1] * 0.40)
+    current_y = int(VIDEO_SIZE[1] * 0.44)
 
     for i, line in enumerate(wrapped_lines):
         bbox = draw.textbbox((0, 0), line, font=font_body)
@@ -279,43 +279,6 @@ def authenticate_youtube():
             
     return build("youtube", "v3", credentials=creds)
 
-def upload_short(file_path, data):
-    youtube = authenticate_youtube()
-    print("🚀 Uploading to YouTube...")
-
-    tag_list = [tag.strip() for tag in data["TAGS"].split(',')]
-    if "shorts" not in tag_list: tag_list.append("shorts")
-    
-    final_title = data["TITLE"]
-    if len(final_title) > 100: final_title = final_title[:97] + "..."
-
-    request_body = {
-        "snippet": {
-            "title": final_title,
-            "description": data["DESCRIPTION"],
-            "tags": tag_list,
-            "categoryId": "22"
-        },
-        "status": {
-            "privacyStatus": "public",
-            "selfDeclaredMadeForKids": False
-        }
-    }
-
-    media = MediaFileUpload(file_path, chunksize=-1, resumable=True)
-    request = youtube.videos().insert(
-        part="snippet,status",
-        body=request_body,
-        media_body=media
-    )
-
-    response = None
-    while response is None:
-        status, response = request.next_chunk()
-        if status:
-            print(f"📊 Upload progress: {int(status.progress() * 100)}%")
-
-    print(f"✅ Upload Complete! ID: {response.get('id')}")
 
 # -------- MAIN --------
 if __name__ == "__main__":
