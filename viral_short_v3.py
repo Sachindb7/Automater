@@ -279,6 +279,50 @@ def authenticate_youtube():
             
     return build("youtube", "v3", credentials=creds)
 
+def upload_short(file_path, data):
+    youtube = authenticate_youtube()
+    
+    print("🚀 Uploading to YouTube...")
+
+    # Preparing Tags (converting string to list)
+    tag_list = [tag.strip() for tag in data["TAGS"].split(',')]
+    
+    # Add standard shorts tags if not present
+    if "shorts" not in tag_list: tag_list.append("shorts")
+    
+    # Title Truncate (just in case AI goes crazy)
+    final_title = data["TITLE"]
+    if len(final_title) > 100: final_title = final_title[:97] + "..."
+
+    request_body = {
+        "snippet": {
+            "title": final_title,
+            "description": data["DESCRIPTION"],
+            "tags": tag_list,
+            "categoryId": "22"
+        },
+        "status": {
+            "privacyStatus": "public",
+            "selfDeclaredMadeForKids": False
+        }
+    }
+
+    media = MediaFileUpload(file_path, chunksize=-1, resumable=True)
+
+    request = youtube.videos().insert(
+        part="snippet,status",
+        body=request_body,
+        media_body=media
+    )
+
+    response = None
+    while response is None:
+        status, response = request.next_chunk()
+        if status:
+            print(f"📊 Upload progress: {int(status.progress() * 100)}%")
+
+    print(f"✅ Upload Complete! https://www.youtube.com/watch?v={response.get('id')}")
+
 # -------- MAIN --------
 if __name__ == "__main__":
     video_data = create_video()
