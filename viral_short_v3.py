@@ -125,9 +125,9 @@ It must push action, not guilt.
 ### OUTPUT FORMAT (STRICT – 5 PARTS ONLY):
 HOOK: [Max 5-6 words(strictly). End with "..."]
 BODY: [Max 10 words. Actionable or reflective.]
-TITLE: [Max 60 chars, 2–3 emojis, 2–4 hashtags]
-DESCRIPTION: [2 short lines. Add 5–6 hashtags.]
-TAGS: [25–30 high-traffic keywords: motivation, discipline, success, mindset, growth]
+TITLE: [Scroll-stopping SEO worthy Title Max 60 chars, 2–3 emojis, 2–4 hashtags]
+DESCRIPTION: [2-4 short lines(seo worthy). Add 5–6 hashtags.]
+TAGS: [25–30 high-traffic keywords/search intented tags all under 500 char]
 """
 
     try:
