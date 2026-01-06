@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 import google.generativeai as genai
 from moviepy.editor import ImageClip, CompositeVideoClip
 from PIL import Image, ImageDraw, ImageFont
+from moviepy.editor import AudioFileClip, afx
+
 
 # --- IMPORTS FOR YOUTUBE UPLOAD ---
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -193,7 +195,8 @@ def create_styled_image(hook_text, body_text):
         font_body = ImageFont.load_default()
 
     # --- 1. DRAW TOP WHITE LABEL (13% Down) ---
-    draw.rectangle([(0, TOP_MARGIN), (VIDEO_SIZE[0], TOP_MARGIN + LABEL_HEIGHT)], fill="white")
+    draw.rectangle([(0, TOP_MARGIN), (VIDEO_SIZE[0], TOP_MARGIN + LABEL_HEIGHT)], fill="white"
+)
 
     # Center Hook Text inside Label
     bbox = draw.textbbox((0, 0), hook_text, font=font_hook)
@@ -229,6 +232,37 @@ def create_styled_image(hook_text, body_text):
     img.save(temp_path)
     return temp_path
 
+def get_random_music(duration):
+    music_dir = "music"
+
+    if not os.path.exists(music_dir):
+        print("📢 No music folder found. Running without sound.")
+        return None
+
+    tracks = [
+        os.path.join(music_dir, f)
+        for f in os.listdir(music_dir)
+        if f.lower().endswith((".mp3", ".wav"))
+    ]
+
+    if not tracks:
+        print("📢 Music folder empty. Running without sound.")
+        return None
+
+    track_path = random.choice(tracks)
+    audio = AudioFileClip(track_path)
+
+    # If music shorter than video → loop
+    if audio.duration < duration:
+        audio = afx.audio_loop(audio, duration=duration)
+
+    # Trim to exact video length + safe volume
+    audio = audio.subclip(0, duration).volumex(0.25)
+
+    print(f"🎵 Using music: {os.path.basename(track_path)}")
+    return audio
+
+
 # -------- STEP 3: Animation --------
 def create_video():
     data, theme = get_dynamic_content()
@@ -249,9 +283,17 @@ def create_video():
     clip = ImageClip(img_path).set_duration(total_duration)
     clip = clip.fadein(FADE_IN).fadeout(FADE_OUT)
     final = CompositeVideoClip([clip], size=VIDEO_SIZE)
-    
-    print("🎬 Rendering Video (1080p)...")
-    final.write_videofile(OUTPUT_FILE, fps=24, codec="libx264")
+
+    music = get_random_music(total_duration)
+    if music:
+        final = final.set_audio(music)
+
+    final.write_videofile(
+        OUTPUT_FILE,
+        fps=24,
+        codec="libx264",
+        audio_codec="aac"
+    )
     
     if os.path.exists(img_path):
         os.remove(img_path)
@@ -278,44 +320,6 @@ def authenticate_youtube():
             token.write(creds.to_json())
             
     return build("youtube", "v3", credentials=creds)
-
-def upload_short(file_path, data):
-    try:
-        youtube = authenticate_youtube()
-        print("🚀 Uploading to YouTube...")
-        
-        tag_list = [tag.strip() for tag in data["TAGS"].split(',')]
-        if "shorts" not in tag_list: tag_list.append("shorts")
-        
-        request_body = {
-            "snippet": {
-                "title": data["TITLE"],
-                "description": data["DESCRIPTION"],
-                "tags": tag_list,
-                "categoryId": "22"
-            },
-            "status": {
-                "privacyStatus": "public",
-                "selfDeclaredMadeForKids": False
-            }
-        }
-
-        media = MediaFileUpload(file_path, chunksize=-1, resumable=True)
-        request = youtube.videos().insert(
-            part="snippet,status", 
-            body=request_body, 
-            media_body=media
-        )
-        
-        response = None
-        while response is None:
-            status, response = request.next_chunk()
-            if status: 
-                print(f"📊 Upload progress: {int(status.progress() * 100)}%")
-            
-        print(f"✅ Upload Complete! ID: {response.get('id')}")
-    except Exception as e:
-        print(f"❌ Upload Failed: {e}")
 
 # -------- MAIN --------
 if __name__ == "__main__":
