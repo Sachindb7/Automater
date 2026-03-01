@@ -44,92 +44,315 @@ SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 
 # -------- STEP 1: Generate Content & Metadata --------
 def get_dynamic_content():
-    print("🤖 AI Thinking... Generating Cliffhanger + Growth Content...")
+    print("🤖 AI Thinking... Generating Fresh Content...")
 
     genai.configure(api_key=GEMINI_API_KEY)
     model = genai.GenerativeModel("gemini-2.5-flash")
 
-    financial_themes = [
-        "Starting Before You Feel Ready",
-        "Consistency Beats Motivation",
-        "Discipline Over Talent",
-        "Long Term Thinking",
-        "Work Ethic",
-        "Focus and Execution",
-        "Building Momentum",
-        "Delayed Gratification"
-    ]
+    # -------- MICRO NICHE THEME POOLS (100+) --------
+    theme_pools = {
+        "GROWTH": [
+            "Starting Before You Feel Ready",
+            "Consistency Beats Motivation",
+            "Discipline Over Talent",
+            "Long Term Thinking",
+            "Work Ethic",
+            "Focus and Execution",
+            "Building Momentum",
+            "Delayed Gratification",
+            "Learning From Failure",
+            "Power of Small Steps",
+            "Compounding Effort Over Time",
+            "Doing The Boring Work",
+            "Showing Up On Bad Days",
+            "Building Systems Not Goals",
+            "Earning Respect Through Action",
+            "Becoming Resourceful",
+            "Investing In Yourself First",
+            "Speed of Implementation",
+            "Saying No To Distractions",
+            "Choosing Hard Now For Easy Later",
+        ],
+        "TRUTH": [
+            "Personal Responsibility",
+            "Hard Truths About Progress",
+            "Why Most People Quit",
+            "Comfort vs Growth",
+            "Self Control",
+            "Facing Reality",
+            "Nobody Owes You Anything",
+            "Your Circle Reflects Your Future",
+            "Average Is A Choice",
+            "Time You Waste Never Returns",
+            "Pain Of Regret vs Pain Of Discipline",
+            "The Cost Of Staying The Same",
+            "Opinions Dont Pay Your Bills",
+            "Being Honest With Yourself",
+            "Outgrowing People Is Normal",
+        ],
+        "MONEY": [
+            "Money Is A Tool Not A Goal",
+            "Value Creation Over Job Hunting",
+            "Multiple Income Streams",
+            "Spending Habits Define Your Future",
+            "Selling Is A Life Skill",
+            "Building Skills That Pay Forever",
+            "The Real Cost Of Cheap Decisions",
+            "Price Of Free Time",
+            "Saving Alone Wont Make You Rich",
+            "Your Network Is Your Net Worth",
+            "Why Side Hustles Matter",
+            "Learn To Sell Or Stay Broke",
+            "Invest Time Before Money",
+            "Money Follows Value Not Degrees",
+            "Rich vs Wealthy Mindset",
+        ],
+        "MINDSET": [
+            "Your Identity Shapes Your Actions",
+            "Confidence Comes After Action",
+            "Overthinking Kills Dreams",
+            "Comparison Is Silent Poison",
+            "Patience Is A Competitive Advantage",
+            "Growth Happens In Silence",
+            "What You Tolerate You Encourage",
+            "Your Standards Define Your Life",
+            "Mental Toughness Is A Muscle",
+            "Detach From Outcomes Focus On Process",
+            "Stop Asking Permission To Win",
+            "Fear Is Not A Stop Sign",
+            "Your Mind Quits Before Your Body",
+            "Small Wins Build Big Confidence",
+            "Prove It To Yourself Not Others",
+        ],
+        "HABITS": [
+            "Morning Routine Shapes Your Day",
+            "Sleep Is A Superpower",
+            "Reading Changes Thinking",
+            "Phone Addiction Kills Potential",
+            "Environment Shapes Behavior",
+            "Energy Management Over Time Management",
+            "Eliminating Before Adding",
+            "The Power Of Boredom",
+            "Ritual vs Random Living",
+            "Tracking Progress Creates Momentum",
+            "Journaling Clears Mental Fog",
+            "Walking Daily Changes Everything",
+            "Cold Showers Build Willpower",
+            "Eating Clean Fuels The Mind",
+            "Digital Detox Weekly",
+        ],
+        "LONELY_GRIND": [
+            "Why The Journey Feels Lonely",
+            "Friends Disappear When You Level Up",
+            "Nobody Claps Until You Win",
+            "Silent Work Loud Results",
+            "Building Alone Is A Superpower",
+            "The Grind Nobody Sees",
+            "Late Nights Early Mornings",
+            "When Nobody Believes In You",
+            "Success Is Lonely At First",
+            "Your Comeback Is Being Built In Silence",
+        ],
+        "RELATIONSHIPS": [
+            "Boundaries Are Self Respect",
+            "Trust Actions Not Promises",
+            "Not Everyone Deserves Your Energy",
+            "Quality Over Quantity In Friendships",
+            "You Teach People How To Treat You",
+            "Stop Chasing People Who Ignore You",
+            "Real Ones Stay Without Being Asked",
+            "Loyalty Is Rare Protect It",
+            "Some People Are Lessons Not Blessings",
+            "Love Yourself Before Loving Others",
+        ],
+        "STUDENT_LIFE": [
+            "Marks Dont Define Intelligence",
+            "Learn Skills Not Just Syllabus",
+            "College Is Not The Only Path",
+            "Start Building While Studying",
+            "Your 20s Are For Building Not Chilling",
+            "Stop Waiting For The Right Time",
+            "Use Your Free Time Wisely",
+            "Every Expert Was Once A Beginner",
+            "Fail Fast Learn Faster",
+            "Your Degree Wont Save You Your Skills Will",
+        ],
+        "SOCIAL_MEDIA_AGE": [
+            "Followers Dont Equal Success",
+            "Stop Watching Others Win And Start",
+            "Online Flex vs Real Life",
+            "Scrolling Is Stealing Your Future",
+            "You Consume More Than You Create",
+            "Likes Dont Pay Bills",
+            "Build In Private Win In Public",
+            "Your Feed Is Programming Your Mind",
+            "Attention Is The New Currency",
+            "Create Dont Just Consume",
+        ],
+        "FEAR_AND_DOUBT": [
+            "Doubt Kills More Dreams Than Failure",
+            "You Are Closer Than You Think",
+            "Fear Means You Care Enough",
+            "Done Is Better Than Perfect",
+            "Stop Waiting For Permission",
+            "What If It Works Out",
+            "The First Step Is Always Ugly",
+            "Nobody Figured It Out Before Starting",
+            "Scared Is Normal Stuck Is A Choice",
+            "Your Only Competition Is Yesterday You",
+        ],
+    }
 
-    dark_themes = [
-        "Personal Responsibility",
-        "Hard Truths About Progress",
-        "Why Most People Quit",
-        "Comfort vs Growth",
-        "Self Control",
-        "Facing Reality"
-    ]
+    # -------- PICK CATEGORY + THEME --------
+    categories = list(theme_pools.keys())
+    weights = [0.15, 0.12, 0.12, 0.13, 0.10, 0.10, 0.08, 0.08, 0.06, 0.06]
+    category = random.choices(categories, weights=weights, k=1)[0]
+    theme = random.choice(theme_pools[category])
 
-    if random.random() < 0.65:
-        theme = random.choice(financial_themes)
-        category = "GROWTH"
-    else:
-        theme = random.choice(dark_themes)
-        category = "TRUTH"
+    # -------- RANDOM TONE --------
+    tones = [
+        "calm older brother giving life advice",
+        "quiet mentor who speaks from experience",
+        "brutally honest friend at 2am",
+        "someone who already made the mistakes",
+        "wise person who says less but means more",
+        "stoic thinker who cuts through noise",
+        "street smart advisor with no filter",
+        "coach who believes in you but won't sugarcoat",
+    ]
+    tone = random.choice(tones)
+
+    # -------- RANDOM BODY STYLE --------
+    body_styles = [
+        "A short realization that hits deep",
+        "A one-line truth bomb",
+        "A comparison that makes the viewer think",
+        "A question disguised as a statement",
+        "An action step disguised as wisdom",
+        "A metaphor about life or growth",
+        "A painful contrast between two paths",
+        "A calm but firm redirect of mindset",
+    ]
+    body_style = random.choice(body_styles)
+
+    # -------- HUMAN SOUNDING HOOKS (40+) --------
+    all_hooks = [
+        "This hit me hard…",
+        "Nobody tells you this…",
+        "Bro just think about it…",
+        "This changed my life…",
+        "Read this twice…",
+        "Not gonna sugarcoat it…",
+        "Hear me out on this…",
+        "This one hurt ngl…",
+        "Real talk for a sec…",
+        "You need to hear this…",
+        "Let me be honest…",
+        "This keeps me up at night…",
+        "Wish I knew this sooner…",
+        "Stop and think about this…",
+        "Nobody warns you about this…",
+        "This is gonna sting…",
+        "Wait for it…",
+        "One thing I learned late…",
+        "The part nobody says…",
+        "Took me years to get this…",
+        "You already feel this…",
+        "Just sit with this one…",
+        "Quick reality check…",
+        "Be honest with yourself…",
+        "This sounds harsh but…",
+        "The ugly truth is…",
+        "No one prepared me for…",
+        "Saving this for later…",
+        "Think about this tonight…",
+        "You're not gonna like this…",
+        "Can we talk about this…",
+        "Facts nobody accepts…",
+        "This might wake you up…",
+        "Pause and read this…",
+        "Lemme tell you something…",
+        "It clicked when I saw…",
+        "Most people miss this…",
+        "Dont skip this one…",
+        "Felt this in my chest…",
+        "One line that broke me…",
+    ]
+    selected_hooks = random.sample(all_hooks, 5)
+
+    # -------- UNIQUE SEED --------
+    seed = random.randint(10000, 99999)
 
     prompt = f"""
-You are a calm but brutally honest mentor.
+You are a {tone}.
 You challenge the viewer without hate, insults, or shaming.
 Your goal is to push action, not guilt.
 
 Theme: {theme}
 Category: {category}
+Unique Seed: {seed}
 
 ### CRITICAL RULES (LANGUAGE):
-❌ NO big words.
+❌ NO big words or fancy vocabulary.
 ❌ NO hate, insults, or blaming language.
 ❌ Do NOT use words like trap, scam, lie, bribe.
-✅ Use simple, clear, direct English.
+❌ Do NOT sound like AI or a robot.
+✅ Use simple, casual, everyday English.
+✅ Sound like a REAL PERSON texting a friend.
+✅ Each output MUST feel fresh and never-seen-before.
 
-### TONE RULE:
-Hooks can be intense, emotional, or painful.
-Body must be grounded, constructive, and growth-focused.
+### HOOK RULES (VERY STRICT):
+- MUST be 4 to 6 words ONLY.
+- End with "..."
+- Sound like a real person talking, NOT a motivational poster.
+- NO fancy words like "embrace", "unleash", "ignite", "forge", "transcend".
+- Think of it like a text message from a friend.
 
-### THE FLOW (Cliffhanger + Direction):
-HOOK: Strong emotional cliffhanger that stops scrolling.
-BODY: A realization or action that helps growth.
+### BODY RULES:
+- Max 10 words.
+- Actionable or reflective.
+- Body Style: {body_style}
+- Sound human and conversational.
 
-### HOOK STYLE (STRICT – follow this pattern):
-- It hit me when I realized…
-- Nobody told me that…
-- You won’t get it until you notice…
-- Things changed the moment I learned…
-- This might hurt a bit…
-- You won’t unhear this…
-- Wait till you realise that…
-- Here’s the part nobody talks about…
-- I never understood it until…
-- This one stings when you think about…
+### ANTI-REPETITION (BANNED PHRASES):
+❌ NEVER use these overused lines in HOOK or BODY:
+- "Growth starts when comfort ends"
+- "Discipline beats motivation every time"
+- "Your comfort zone is killing you"
+- "Nobody is coming to save you"
+- "Actions speak louder than words"
+- "Consistency is key"
+- "Hard work pays off"
+- "Start before you're ready"
+- "Your excuses are holding you back"
+- "Success is not overnight"
+- "Keep grinding" / "Stay focused" / "Trust the process"
+- "Embrace the journey" / "Unleash your potential"
 
-### EXAMPLES (STYLE REFERENCE):
-Hook: This might hurt a bit…
-Body: Comfort delays the life you want.
+### HOOK STYLE (Pick ONE and twist it creatively):
+{chr(10).join(f"- {h}" for h in selected_hooks)}
 
-Hook: Nobody told me that…
-Body: Starting messy beats waiting perfect.
-
-Hook: It hit different when I realised…
-Body: Discipline beats motivation every time.
+### TITLE RULES (VERY STRICT):
+- Catchy, urgency-based, scroll-stopping.
+- 2-3 emojis mixed naturally.
+- 1-2 hashtags at the end.
+- EVERYTHING under 100 characters total (including emojis + hashtags).
+- Examples of GOOD titles:
+  "You Need To Hear This Right Now 🔥💯 #shorts"
+  "Stop Ignoring This 😤🚨 #mindset #shorts"
+  "This One Hurts But Its True 💔🔥 #realtalk"
+  "Bro This Changed Everything 🧠💡 #growth"
 
 ### BODY SAFETY RULE:
 If the body only makes the viewer feel bad, rewrite it.
 It must push action, not guilt.
 
 ### OUTPUT FORMAT (STRICT – 5 PARTS ONLY):
-HOOK: [Max 5-6 words(strictly). End with "..."]
-BODY: [Max 10 words. Actionable or reflective.]
-TITLE: [Scroll-stopping SEO worthy Title Max 60 chars, 2–3 emojis, 2–4 hashtags]
-DESCRIPTION: [2-4 short lines(seo worthy). Add 5–6 hashtags.]
-TAGS: [25–30 high-traffic keywords/search intented tags all under 500 char]
+HOOK: [4-6 words only. End with "...". Sound human.]
+BODY: [Max 10 words. Unique. Sound human.]
+TITLE: [Catchy urgency title, 2-3 emojis, 1-2 hashtags, ALL under 100 chars]
+DESCRIPTION: [2-4 short lines (seo worthy). Add 5-6 hashtags.]
+TAGS: [25-30 high-traffic keywords/search intended tags all under 500 char]
 """
 
     try:
@@ -137,9 +360,9 @@ TAGS: [25–30 high-traffic keywords/search intented tags all under 500 char]
         text = response.text.strip()
 
         data = {
-            "HOOK": "This might hurt a bit...",
-            "BODY": "Growth starts when comfort ends.",
-            "TITLE": "This One Stings 💭 #mindset",
+            "HOOK": "This hit me hard...",
+            "BODY": "You only grow when it gets uncomfortable.",
+            "TITLE": "You Need To Hear This 🔥💯 #shorts",
             "DESCRIPTION": "A reminder you needed today.\n#growth #discipline #mindset #motivation",
             "TAGS": "motivation, mindset, discipline, growth, success, shorts, self improvement"
         }
@@ -170,16 +393,23 @@ TAGS: [25–30 high-traffic keywords/search intented tags all under 500 char]
             elif current_key == "DESCRIPTION":
                 data["DESCRIPTION"] += "\n" + line
 
+        # -------- TITLE LENGTH SAFETY CHECK --------
+        if len(data["TITLE"]) > 100:
+            data["TITLE"] = data["TITLE"][:97] + "..."
+
+        print(f"🔹 Category: {category}")
         print(f"🔹 Theme: {theme}")
+        print(f"🔹 Tone: {tone}")
+        print(f"🔹 Body Style: {body_style}")
         print(f"🔹 Hook: {data['HOOK']}")
         print(f"🔹 Body: {data['BODY']}")
+        print(f"🔹 Title ({len(data['TITLE'])} chars): {data['TITLE']}")
 
         return data, theme
 
     except Exception as e:
         print(f"❌ API Error: {e}")
         return None, theme
-
 
 # -------- STEP 2: Create the Image --------
 def create_styled_image(hook_text, body_text):
