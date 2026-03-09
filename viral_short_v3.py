@@ -24,6 +24,10 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 OUTPUT_FILE = "viral_short_v3.mp4"
 VIDEO_SIZE = (1080, 1920) # 1080p Full HD
 
+# ✅ FIX 1: Ye 2 lines add ki — pehle missing thi
+CLIENT_SECRET_FILE = "client_secret.json"
+TOKEN_FILE = "token.json"
+
 # ---> IMPORTANT: Ab 2 fonts chahiye. Ek regular, ek bold <---
 FONT_REGULAR_PATH = "arial.ttf" 
 FONT_BOLD_PATH = "arialbd.ttf"  
@@ -37,7 +41,7 @@ PARAGRAPH_SPACING = 50    # Space between new lines (\n)
 
 # Timing
 FADE_IN = 1.0
-HOLD_DURATION = 3.0       # Thoda badha diya taaki padhne ka time mile
+HOLD_DURATION = 2.0       # Thoda badha diya taaki padhne ka time mile
 FADE_OUT = 1.0
 
 # YouTube API Scopes
@@ -85,7 +89,7 @@ especially when you walk **alone**."
 - 2-3 emojis, 1-2 hashtags.
 
 ### OUTPUT FORMAT (STRICT – 4 PARTS ONLY):
-QUOTE: [Your 3-4 line quote with **bold** markers. Use \n for new lines if needed, or just type on new lines]
+QUOTE: [Your 3-4 line quote with **bold** markers. Use \\n for new lines if needed, or just type on new lines]
 TITLE: [Catchy urgency title, emojis, hashtags]
 DESCRIPTION: [2-4 short lines. Add 5-6 hashtags.]
 TAGS: [25-30 keywords separated by comma]
@@ -267,61 +271,112 @@ def create_video():
     
     return data
 
-# -------- STEP 4: YouTube Upload (Unchanged) --------
+# -------- STEP 4: YouTube Upload --------
 def authenticate_youtube():
     creds = None
-    if os.path.exists("token.json"):
-        creds = Credentials.from_authorized_user_file("token.json", SCOPES)
     
+    # Pehle se saved token check karo
+    if os.path.exists(TOKEN_FILE):
+        creds = Credentials.from_authorized_user_file(TOKEN_FILE, SCOPES)
+    
+    # Agar token invalid ya expired hai
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
+            print("🔄 Token expired, refreshing...")
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file("client_secrets.json", SCOPES)
-            creds = flow.run_local_server(port=0)
-        with open("token.json", "w") as token: token.write(creds.to_json())
+            # Check karo client_secret file exist karti hai ya nahi
+            if not os.path.exists(CLIENT_SECRET_FILE):
+                print(f"❌ '{CLIENT_SECRET_FILE}' nahi mila!")
+                print("   → Google Cloud Console se download karo")
+                print("   → OAuth 2.0 Client ID → Desktop App → Download JSON")
+                return None
             
+            print("🔐 Browser kholega for Google login...")
+            flow = InstalledAppFlow.from_client_secrets_file(
+                CLIENT_SECRET_FILE, SCOPES
+            )
+            creds = flow.run_local_server(port=0)
+        
+        # Token save karo future ke liye
+        with open(TOKEN_FILE, "w") as token:
+            token.write(creds.to_json())
+        print("✅ Token saved!")
+    
     return build("youtube", "v3", credentials=creds)
 
 def upload_short(file_path, data):
     try:
         youtube = authenticate_youtube()
+        
+        if youtube is None:
+            print("❌ Authentication fail! client_secret.json check karo")
+            return
+        
         print("🚀 Uploading to YouTube...")
         
+        # Tags prepare karo
         tag_list = [tag.strip() for tag in data["TAGS"].split(',')]
-        if "shorts" not in tag_list: tag_list.append("shorts")
+        if "shorts" not in [t.lower() for t in tag_list]:
+            tag_list.append("shorts")
+        if "#Shorts" not in tag_list:
+            tag_list.insert(0, "#Shorts")
+        
+        # Description mein #Shorts add karo
+        description = data["DESCRIPTION"]
+        if "#Shorts" not in description:
+            description += "\n\n#Shorts"
         
         request_body = {
             "snippet": {
-                "title": data["TITLE"],
-                "description": data["DESCRIPTION"],
+                "title": data["TITLE"][:100],
+                "description": description,
                 "tags": tag_list,
-                "categoryId": "22"
+                "categoryId": "22",
+                "defaultLanguage": "en",
+                "defaultAudioLanguage": "en",
             },
             "status": {
                 "privacyStatus": "public",
-                "selfDeclaredMadeForKids": False
+                "selfDeclaredMadeForKids": False,
             }
         }
 
-        media = MediaFileUpload(file_path, chunksize=-1, resumable=True)
-        request = youtube.videos().insert(part="snippet,status", body=request_body, media_body=media)
+        media = MediaFileUpload(
+            file_path, 
+            mimetype="video/mp4",
+            resumable=True, 
+            chunksize=256 * 1024
+        )
+        
+        request = youtube.videos().insert(
+            part="snippet,status", 
+            body=request_body, 
+            media_body=media
+        )
         
         response = None
         while response is None:
             status, response = request.next_chunk()
-            if status: print(f"📊 Upload progress: {int(status.progress() * 100)}%")
-            
-        print(f"✅ Upload Complete! ID: {response.get('id')}")
+            if status:
+                print(f"   📊 Upload: {int(status.progress() * 100)}%")
+        
+        video_id = response.get('id')
+        url = f"https://youtube.com/shorts/{video_id}"
+        print(f"✅ Upload Complete!")
+        print(f"🔗 URL: {url}")
+        
     except Exception as e:
         print(f"❌ Upload Failed: {e}")
+        import traceback
+        traceback.print_exc()
 
 # -------- MAIN --------
+# ✅ FIX 2: Upload uncomment kiya + proper error handling
 if __name__ == "__main__":
     video_data = create_video()
-    try:
-        # Uncomment below line to enable actual upload
-        # upload_short(OUTPUT_FILE, video_data)
-        pass
-    except Exception as e:
-        print(f"❌ Upload Failed: {e}")
+    
+    if video_data:
+        upload_short(OUTPUT_FILE, video_data)
+    else:
+        print("❌ Video data generate nahi hua")
