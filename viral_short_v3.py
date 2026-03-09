@@ -36,7 +36,7 @@ LINE_SPACING = 30
 PARAGRAPH_SPACING = 50
 
 FADE_IN = 0.0
-HOLD_DURATION = 4.0
+HOLD_DURATION = 3.5
 FADE_OUT = 0.0
 
 SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
