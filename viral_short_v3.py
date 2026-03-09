@@ -29,7 +29,7 @@ FONT_REGULAR_PATH = "arial.ttf"
 FONT_BOLD_PATH = "arialbd.ttf"  
 
 # Visual Settings
-FONT_SIZE = 60            # Font size for both regular and bold
+FONT_SIZE = 50            # Font size for both regular and bold
 LEFT_MARGIN = 120         # Left space to match reference image
 RIGHT_MARGIN = 120        # Right space for word wrapping
 LINE_SPACING = 30         # Space between wrapped lines
