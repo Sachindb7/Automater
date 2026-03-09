@@ -121,6 +121,63 @@ THEMES = [
     "Why you feel empty even when you have everything",
     "The paradox of choice in the modern world",
     "Digital loneliness in a connected world",
+
+    # ============================================================
+    # 🆕 PERSPECTIVE-SHIFTING / DEEP PHILOSOPHICAL THEMES
+    # ============================================================
+    "Everything depends on perspective - the villain in one story is the hero in another",
+    "If you ask the grass, the zebra is the monster and the lion is the protector",
+    "Nothing in this world comes for free - even heaven demands death",
+    "The knife thinks it's hurting the bread but it's actually helping someone eat",
+    "The same rain that grows flowers also causes floods",
+    "Fire destroys the forest but also clears the path for new life",
+    "The same ocean that carries ships also swallows them",
+    "A lock and a key are useless alone but together they protect everything",
+    "Your ceiling is someone else's floor - perspective changes everything",
+    "The wolf is evil in the story told by the sheep",
+    "The same sun that melts ice also hardens clay - same situation different results",
+    "A lion doesn't lose sleep over the opinion of sheep",
+    "The tree that bends in the storm survives while the rigid one breaks",
+    "Poison and medicine are sometimes the same thing - only the dose matters",
+    "The darkness is not the opposite of light - it's the absence of it",
+    "Every saint has a past and every sinner has a future",
+    "The same wind blows on everyone but some build walls and some build windmills",
+    "A bird sitting on a branch never worries about the branch breaking because it trusts its wings",
+    "The river doesn't drink its own water - the tree doesn't eat its own fruit",
+    "What feeds you today can starve you tomorrow if you depend on it forever",
+    "The same society that tells you to be yourself will judge you for it",
+    "They pray for you when you're sick but envy you when you're well",
+    "The graveyard is the richest place - full of unwritten books and unfinished dreams",
+    "A diamond is just a piece of coal that handled stress well",
+    "The arrow can only be shot forward by pulling it backward first",
+    "The tallest trees catch the most wind - success attracts storms",
+    "Stars can't shine without darkness around them",
+    "The most expensive thing in the world is trust - it takes years to build and seconds to destroy",
+    "You can't read the label from inside the bottle - outsiders see what you can't",
+    "The cage was open the whole time - you just never looked up",
+    "Nobody notices your tears nobody notices your sadness but they all notice your mistakes",
+    "The strongest soldiers are given the hardest battles",
+    "A smooth sea never made a skilled sailor",
+    "The candle that lights others burns itself - sacrifice is silent",
+    "Sometimes the wrong train takes you to the right station",
+    "People who live in glass houses judge others through the same walls",
+    "The fisherman sees the ocean differently than the tourist",
+    "If you chase two rabbits you catch none - focus is the real superpower",
+    "The teacher appears when the student is ready not when the student asks",
+    "Nothing worth having comes without a price - even breathing costs energy",
+    "The world rewards you for results not for suffering",
+    "Pain is the rent you pay for living in a strong body",
+    "You can't heal in the same environment that made you sick",
+    "The wolf you feed is the one that wins - choose your thoughts wisely",
+    "A drowning man will grab even a sword - desperation blinds you",
+    "The same door that closes behind you opens something ahead",
+    "Broken crayons still color - your past doesn't define your output",
+    "Sometimes the most productive thing you can do is rest",
+    "Silence is the best answer to a fool and the best friend to the wise",
+    "The things you own end up owning you - minimalism is freedom",
+    "Nobody teaches you how to handle success and that's why it destroys so many",
+    "The mountain you carry was only meant to be climbed",
+    "An empty vessel makes the most noise - depth is always quiet",
 ]
 
 CATEGORIES = [
@@ -129,7 +186,13 @@ CATEGORIES = [
     "RELATIONSHIPS", "MENTAL_HEALTH", "HARD_TRUTH",
     "TIME_URGENCY", "PHILOSOPHY", "MODERN_STRUGGLE",
     "FAILURE_SUCCESS", "CONFIDENCE", "EMOTIONAL_DEPTH",
-    "SILENT_POWER", "PAIN_TO_POWER", "REALITY_CHECK"
+    "SILENT_POWER", "PAIN_TO_POWER", "REALITY_CHECK",
+
+    # 🆕 NEW CATEGORIES
+    "PERSPECTIVE_SHIFT", "DEEP_ANALOGY", "NATURE_WISDOM",
+    "PARADOX", "DARK_PHILOSOPHY", "HIDDEN_TRUTH",
+    "IRONY_OF_LIFE", "METAPHOR_BOMB", "SACRIFICE",
+    "DUALITY", "TWISTED_REALITY", "RAW_OBSERVATION",
 ]
 
 TONES = [
@@ -143,6 +206,16 @@ TONES = [
     "reflective, like writing in a journal at 3am",
     "powerful silence energy",
     "like advice from your future self",
+
+    # 🆕 NEW TONES
+    "perspective-flipping, like showing the other side of the coin",
+    "dark and poetic, like a philosopher staring at the stars",
+    "twisted irony, like life laughing at your plans",
+    "nature-inspired wisdom, calm but devastating",
+    "cold observation, like watching the world from a rooftop",
+    "paradox energy, making you question everything",
+    "ancient proverb rewritten for the modern soul",
+    "quiet devastation, like a truth bomb wrapped in silk",
 ]
 
 STRUCTURES = [
@@ -153,6 +226,15 @@ STRUCTURES = [
     "3 lines - contrast between two ideas ending with wisdom",
     "3 lines - metaphor that hits different",
     "4 lines - storytelling micro-moment",
+
+    # 🆕 NEW STRUCTURES
+    "3 lines - perspective flip using two sides of the same thing",
+    "2 lines - single devastating truth with no escape",
+    "3 lines - analogy from nature applied to human life",
+    "4 lines - if-you-ask format showing different perspectives",
+    "3 lines - irony of life wrapped in simple words",
+    "2 lines - paradox that makes you stop and think",
+    "3 lines - something everyone sees differently depending on who they are",
 ]
 
 
@@ -232,6 +314,17 @@ Timestamp: {timestamp}
 - DO NOT use cliché phrases like "take the first step" or "start before you're ready."
 - Surprise the reader. Say something they haven't heard 1000 times.
 
+### PERSPECTIVE & DEEP PHILOSOPHY RULES (NEW - VERY IMPORTANT):
+- Sometimes create quotes that FLIP perspective completely.
+- Show the SAME situation from TWO different viewpoints.
+- Use analogies from nature, animals, or everyday objects to reveal hidden truths.
+- Think like: "If you ask the grass, the zebra is the **monster** and the lion is the **protector**."
+- Think like: "Nothing in this world comes for **free**. Even heaven demands **death**."
+- Think like: "The same **rain** that grows flowers also causes **floods**."
+- The reader should STOP and RETHINK their entire understanding.
+- Make the reader feel like they just saw the world from a completely new angle.
+- Use irony, paradox, and duality whenever the theme allows it.
+
 ### QUOTE RULES (VERY STRICT):
 - Generate a single continuous thought broken into {structure}.
 - The tone should be: {tone}.
@@ -251,6 +344,7 @@ especially when you walk **alone**."
 - Don't say "just start"
 - Don't give generic advice. Give a REALIZATION.
 - Don't repeat themes from common motivational pages.
+- Don't be preachy. Be observational. Be poetic. Be twisted.
 
 ### TITLE & METADATA RULES:
 - Catchy, urgency-based, under 100 characters.
