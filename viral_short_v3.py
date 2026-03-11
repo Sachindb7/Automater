@@ -42,199 +42,142 @@ FADE_OUT = 0.0
 SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 
 # ============================================================
-# 🔥 MASSIVE VARIETY SYSTEM
+# 🔥 BILLIONAIRE MINDSET - FOCUSED VARIETY SYSTEM
 # ============================================================
 
 THEMES = [
-    "The pain of discipline vs the pain of regret",
-    "Why your morning routine decides your future",
-    "Small daily habits that destroy your life silently",
-    "The difference between busy and productive",
-    "Why most people quit right before the breakthrough",
-    "Why broke people stay broke (mindset trap)",
-    "The ugly truth about trading time for money",
-    "What rich people never tell you about wealth",
-    "Why saving money won't make you rich",
-    "The skill nobody teaches you about money",
-    "Why your lonely phase is your most powerful phase",
-    "The friends you lose when you start growing",
-    "Why nobody claps for you until you've already made it",
-    "Eating alone, walking alone, winning alone",
-    "The silence that builds empires",
-    "Stop improving yourself and start accepting yourself",
-    "The trap of toxic positivity nobody talks about",
-    "Why you feel lost in your 20s (and it's okay)",
-    "The version of you that scares you is the real you",
-    "Why comfort is the slowest form of suicide",
-    "Why some people are only loyal when they need you",
-    "The moment you stop chasing people everything changes",
-    "Not everyone deserves an explanation from you",
-    "People show you who they are - believe them",
-    "Why the strongest people have the fewest friends",
-    "It's okay to not be okay (but don't stay there)",
-    "The weight you carry that nobody sees",
-    "Why overthinking is slowly killing your happiness",
-    "The art of letting go without giving up",
-    "Your worst days are building your best chapters",
-    "Why failure is just data, not destiny",
-    "The comeback is always stronger than the setback",
-    "Nobody remembers average - be unforgettable",
-    "Why your biggest flex should be your peace",
-    "The graveyard of dreams is full of talented people",
-    "Stop waiting for motivation, build momentum instead",
-    "The 5 second rule that changed everything",
-    "Why your environment matters more than your talent",
-    "The lie of 'I'll start tomorrow'",
-    "You're not lazy, you're scared",
-    "Nobody is coming to save you",
-    "Your phone is stealing your future",
-    "The people you admire are just regular people who didn't quit",
-    "Why being nice is not the same as being kind",
-    "You're addicted to distraction and calling it relaxation",
-    "The old you has to die for the new you to be born",
-    "Why growth feels like breaking apart",
-    "You weren't built to fit in, you were built to stand out",
-    "The butterfly doesn't miss being a caterpillar",
-    "Stop apologizing for evolving",
-    "One day or day one - you decide",
-    "The clock is ticking whether you move or not",
-    "You don't have unlimited tomorrows",
-    "Time doesn't wait for your perfect plan",
-    "The best time was yesterday, the next best time is now",
-    "Stop shrinking yourself to make others comfortable",
-    "Your value doesn't decrease based on someone's inability to see your worth",
-    "The loudest person in the room is the weakest",
-    "Confidence is silent, insecurity is loud",
-    "You teach people how to treat you",
-    "Use your pain as fuel, not as an excuse",
-    "They laughed at you, remember that when you win",
-    "The revenge is living well",
-    "Build in silence, let success make the noise",
-    "Your haters are your biggest fans in disguise",
-    "The obstacle is the way",
-    "What you resist, persists",
-    "The cave you fear to enter holds the treasure you seek",
-    "Knowledge speaks, wisdom listens",
-    "The unexamined life is not worth living",
-    "Why social media is making you depressed",
-    "The comparison trap that's ruining your life",
-    "Why you feel empty even when you have everything",
-    "The paradox of choice in the modern world",
-    "Digital loneliness in a connected world",
+    # ---------- 💰 MONEY MINDSET ----------
+    "Why broke people stay broke - it's a mindset not a bank balance",
+    "The ugly truth about trading your time for money",
+    "What rich people understand about money that you don't",
+    "Why saving money alone will never make you rich",
+    "The one money skill school never taught you",
+    "Your salary is someone else's daily spending - let that sink in",
+    "Rich people buy time while broke people sell time",
+    "Money follows value - become more valuable",
+    "Stop working for money and make money work for you",
+    "The difference between looking rich and being rich",
 
-    # ============================================================
-    # 🆕 PERSPECTIVE-SHIFTING / DEEP PHILOSOPHICAL THEMES
-    # ============================================================
-    "Everything depends on perspective - the villain in one story is the hero in another",
-    "If you ask the grass, the zebra is the monster and the lion is the protector",
+    # ---------- 🔥 DISCIPLINE & HABITS ----------
+    "The pain of discipline vs the pain of regret - pick one",
+    "Your morning routine is secretly deciding your future",
+    "Small daily habits that are quietly destroying your life",
+    "The real difference between being busy and being productive",
+    "The biggest lie you tell yourself is I'll start tomorrow",
+    "Stop waiting for motivation and just build momentum",
+    "Discipline is doing it even when you don't feel like it",
+    "Your daily routine is either building your dream or someone else's",
+    "One hour a day on your skill changes everything in one year",
+    "The things you do when nobody is watching decide your future",
+
+    # ---------- 📈 GROWTH & LEVELING UP ----------
+    "Why most people quit right before the breakthrough happens",
+    "The friends you lose when you start leveling up",
+    "Why nobody claps for you until you've already made it",
+    "The old you has to go so the new you can show up",
+    "Growth is uncomfortable and that's exactly the point",
+    "You weren't built to stay the same person forever",
+    "Stop saying sorry for becoming a better version of yourself",
+    "The glow up happens in private the results show up in public",
+    "You are one decision away from a completely different life",
+    "Level up so hard that people who knew the old you can't keep up",
+
+    # ---------- 💎 SELF WORTH & CONFIDENCE ----------
+    "Your value doesn't drop just because someone can't see it",
+    "Confidence is quiet and insecurity is always loud",
+    "Stop making yourself smaller so others feel comfortable",
+    "You teach people how to treat you by what you accept",
+    "Your biggest flex should be your peace of mind",
+    "Not everyone deserves a front row seat in your life",
+    "Know your worth then add tax to it",
+    "The way you treat yourself sets the standard for everyone else",
+    "Stop looking for approval from people who don't even approve of themselves",
+    "You are the prize - start acting like it",
+
+    # ---------- 🐺 LONE WOLF / GRINDING ALONE ----------
+    "Your lonely phase is actually your most powerful phase",
+    "Eating alone walking alone winning alone - it's a phase not a life",
+    "The silence nobody sees is building the success everyone will hear",
+    "Build in silence and let your results do all the talking",
+    "The strongest people often have the smallest circles",
+    "Sometimes you gotta distance yourself to see things clearly",
+    "Alone time is when you find out who you really are",
+    "The table you sit at alone today will be full tomorrow",
+    "Working alone means nobody can slow you down",
+    "Your circle got smaller because your vision got bigger",
+
+    # ---------- 💪 COMEBACK & RISING UP ----------
+    "The comeback is always stronger than the setback",
+    "They laughed at you then - remember that when you win",
+    "Use your pain as fuel not as an excuse to stop",
+    "Your worst days are secretly building your best chapters",
+    "Every setback is just a setup for something bigger",
+    "You've survived 100% of your worst days so far",
+    "The ones who doubted you will be the first to congratulate you",
+    "Rock bottom taught me things mountain tops never could",
+    "Tough times don't last but tough people definitely do",
+    "Your biggest scars will become your greatest story",
+
+    # ---------- ⏰ TIME & URGENCY ----------
+    "One day or day one - you decide right now",
+    "The clock is ticking whether you make a move or not",
+    "You don't have unlimited tomorrows - act like it",
+    "The best time was yesterday the next best time is right now",
+    "Time is the only thing you can't buy back no matter how rich you get",
+    "A year from now you'll wish you started today",
+    "Everyone has 24 hours - how you use yours is the difference",
+    "You're not running out of time you're running out of excuses",
+
+    # ---------- 🗣️ REAL TALK / RELATABLE ----------
+    "You're not lazy you're just scared to fail",
+    "Nobody is coming to save you - that's your job now",
+    "Your phone is stealing your future one scroll at a time",
+    "You're addicted to distraction and you're calling it relaxation",
+    "The people you admire are regular people who just didn't quit",
+    "Feeling lost in your 20s is normal - just don't stay lost",
+    "Stop comparing your chapter 1 to someone else's chapter 20",
+    "The only person you should try to be better than is who you were yesterday",
+    "Everybody wants the results but nobody wants the boring work",
+    "You don't need more time you need more focus",
+    "Hard work beats talent when talent doesn't work hard",
+    "Most people don't want to see you win because it reminds them they're losing",
+    "Your comfort zone is a beautiful place but nothing grows there",
+
+    # ---------- 🌊 RARE DEEP ONES (1 in 20-30 ratio) ----------
     "Nothing in this world comes for free - even heaven demands death",
-    "The knife thinks it's hurting the bread but it's actually helping someone eat",
-    "The same rain that grows flowers also causes floods",
-    "Fire destroys the forest but also clears the path for new life",
-    "The same ocean that carries ships also swallows them",
-    "A lock and a key are useless alone but together they protect everything",
-    "Your ceiling is someone else's floor - perspective changes everything",
-    "The wolf is evil in the story told by the sheep",
-    "The same sun that melts ice also hardens clay - same situation different results",
-    "A lion doesn't lose sleep over the opinion of sheep",
-    "The tree that bends in the storm survives while the rigid one breaks",
-    "Poison and medicine are sometimes the same thing - only the dose matters",
-    "The darkness is not the opposite of light - it's the absence of it",
-    "Every saint has a past and every sinner has a future",
-    "The same wind blows on everyone but some build walls and some build windmills",
-    "A bird sitting on a branch never worries about the branch breaking because it trusts its wings",
-    "The river doesn't drink its own water - the tree doesn't eat its own fruit",
-    "What feeds you today can starve you tomorrow if you depend on it forever",
-    "The same society that tells you to be yourself will judge you for it",
-    "They pray for you when you're sick but envy you when you're well",
-    "The graveyard is the richest place - full of unwritten books and unfinished dreams",
-    "A diamond is just a piece of coal that handled stress well",
-    "The arrow can only be shot forward by pulling it backward first",
-    "The tallest trees catch the most wind - success attracts storms",
-    "Stars can't shine without darkness around them",
-    "The most expensive thing in the world is trust - it takes years to build and seconds to destroy",
-    "You can't read the label from inside the bottle - outsiders see what you can't",
-    "The cage was open the whole time - you just never looked up",
-    "Nobody notices your tears nobody notices your sadness but they all notice your mistakes",
-    "The strongest soldiers are given the hardest battles",
+    "A diamond is just a piece of coal that handled pressure well",
+    "Broken crayons still color - your past doesn't define your future",
     "A smooth sea never made a skilled sailor",
-    "The candle that lights others burns itself - sacrifice is silent",
-    "Sometimes the wrong train takes you to the right station",
-    "People who live in glass houses judge others through the same walls",
-    "The fisherman sees the ocean differently than the tourist",
-    "If you chase two rabbits you catch none - focus is the real superpower",
-    "The teacher appears when the student is ready not when the student asks",
-    "Nothing worth having comes without a price - even breathing costs energy",
-    "The world rewards you for results not for suffering",
-    "Pain is the rent you pay for living in a strong body",
-    "You can't heal in the same environment that made you sick",
-    "The wolf you feed is the one that wins - choose your thoughts wisely",
-    "A drowning man will grab even a sword - desperation blinds you",
-    "The same door that closes behind you opens something ahead",
-    "Broken crayons still color - your past doesn't define your output",
-    "Sometimes the most productive thing you can do is rest",
-    "Silence is the best answer to a fool and the best friend to the wise",
-    "The things you own end up owning you - minimalism is freedom",
-    "Nobody teaches you how to handle success and that's why it destroys so many",
-    "The mountain you carry was only meant to be climbed",
-    "An empty vessel makes the most noise - depth is always quiet",
+    "Stars only shine when it's dark enough around them",
 ]
+
 
 CATEGORIES = [
-    "GROWTH", "TRUTH", "MONEY", "MINDSET", "HABITS",
-    "LONELY_GRIND", "DARK_MOTIVATION", "SELF_WORTH",
-    "RELATIONSHIPS", "MENTAL_HEALTH", "HARD_TRUTH",
-    "TIME_URGENCY", "PHILOSOPHY", "MODERN_STRUGGLE",
-    "FAILURE_SUCCESS", "CONFIDENCE", "EMOTIONAL_DEPTH",
-    "SILENT_POWER", "PAIN_TO_POWER", "REALITY_CHECK",
-
-    # 🆕 NEW CATEGORIES
-    "PERSPECTIVE_SHIFT", "DEEP_ANALOGY", "NATURE_WISDOM",
-    "PARADOX", "DARK_PHILOSOPHY", "HIDDEN_TRUTH",
-    "IRONY_OF_LIFE", "METAPHOR_BOMB", "SACRIFICE",
-    "DUALITY", "TWISTED_REALITY", "RAW_OBSERVATION",
+    "MONEY_MINDSET", "GROWTH", "DISCIPLINE", "SELF_WORTH",
+    "CONFIDENCE", "LONE_WOLF", "COMEBACK", "HARD_TRUTH",
+    "TIME_URGENCY", "HABITS", "REAL_TALK", "RARE_DEEP",
 ]
+
 
 TONES = [
-    "melancholic but empowering",
-    "calm and wise, like a late night realization",
-    "raw and brutally honest",
-    "quiet confidence, like someone who already won",
-    "slightly sad but deeply motivating",
-    "spoken like a mentor who's been through hell",
-    "cold truth delivered with warmth",
-    "reflective, like writing in a journal at 3am",
-    "powerful silence energy",
-    "like advice from your future self",
-
-    # 🆕 NEW TONES
-    "perspective-flipping, like showing the other side of the coin",
-    "dark and poetic, like a philosopher staring at the stars",
-    "twisted irony, like life laughing at your plans",
-    "nature-inspired wisdom, calm but devastating",
-    "cold observation, like watching the world from a rooftop",
-    "paradox energy, making you question everything",
-    "ancient proverb rewritten for the modern soul",
-    "quiet devastation, like a truth bomb wrapped in silk",
+    "like your best friend giving you a reality check at 2am",
+    "calm and confident, like someone who already made it",
+    "raw and honest, no sugarcoating but no hate either",
+    "like a big brother who genuinely wants you to win",
+    "warm but firm, like a mentor who believes in you",
+    "quiet winner energy, someone who moves in silence",
+    "late night honest conversation between two real ones",
+    "slightly emotional but deeply empowering",
 ]
+
 
 STRUCTURES = [
     "3 lines - setup, twist, punchline",
     "4 lines - slow build to a powerful ending",
     "3 lines - observation, realization, truth bomb",
-    "4 lines - question format that makes you think",
     "3 lines - contrast between two ideas ending with wisdom",
-    "3 lines - metaphor that hits different",
-    "4 lines - storytelling micro-moment",
-
-    # 🆕 NEW STRUCTURES
-    "3 lines - perspective flip using two sides of the same thing",
-    "2 lines - single devastating truth with no escape",
-    "3 lines - analogy from nature applied to human life",
-    "4 lines - if-you-ask format showing different perspectives",
-    "3 lines - irony of life wrapped in simple words",
-    "2 lines - paradox that makes you stop and think",
-    "3 lines - something everyone sees differently depending on who they are",
+    "3 lines - simple metaphor that hits different",
+    "4 lines - relatable moment leading to a powerful realization",
 ]
 
 
@@ -295,8 +238,9 @@ def get_dynamic_content():
     print(f"📐 Structure: {structure}")
 
     prompt = f"""
-You are a quiet mentor who speaks from deep personal experience.
-You challenge the viewer without hate, insults, or shaming.
+You are writing for a YouTube Shorts channel called "BILLIONAIRE MINDSET".
+The channel posts positive motivation, money mindset, growth, and real bro-to-bro talk.
+The vibe is like a friend who genuinely wants you to win in life.
 
 Theme: {theme}
 Category: {category}
@@ -305,56 +249,85 @@ Structure: {structure}
 Unique Seed: {seed}
 Timestamp: {timestamp}
 
-### CRITICAL RULES (LANGUAGE):
-- NO big words or fancy vocabulary.
-- NO hate, insults, or blaming language.
-- Use simple, casual, everyday English.
-- Sound like a REAL PERSON making a deep realization.
-- DO NOT just rephrase the theme. Create an ORIGINAL thought INSPIRED by it.
-- DO NOT use cliché phrases like "take the first step" or "start before you're ready."
-- Surprise the reader. Say something they haven't heard 1000 times.
+### WHO YOU ARE:
+- You are NOT a preacher, philosopher, or professor.
+- You are a real person who has been through real struggles and came out stronger.
+- You talk like a FRIEND, not a teacher. Like a big brother, not a guru.
+- Your words should feel like HOME - warm, real, and deeply honest.
+- The reader should feel "damn, this hit different" and genuinely SMILE.
+- Your content should make people SAVE it, SCREENSHOT it, and set it as wallpaper.
 
-### PERSPECTIVE & DEEP PHILOSOPHY RULES (NEW - VERY IMPORTANT):
-- Sometimes create quotes that FLIP perspective completely.
-- Show the SAME situation from TWO different viewpoints.
-- Use analogies from nature, animals, or everyday objects to reveal hidden truths.
-- Think like: "If you ask the grass, the zebra is the **monster** and the lion is the **protector**."
-- Think like: "Nothing in this world comes for **free**. Even heaven demands **death**."
-- Think like: "The same **rain** that grows flowers also causes **floods**."
-- The reader should STOP and RETHINK their entire understanding.
-- Make the reader feel like they just saw the world from a completely new angle.
-- Use irony, paradox, and duality whenever the theme allows it.
+### LANGUAGE RULES (MOST IMPORTANT - READ CAREFULLY):
+- Use ONLY simple, everyday English words that a normal person uses.
+- Write like a 10th grader would talk to his best friend.
+- If a 15-year-old wouldn't say that word in casual conversation, DON'T use it.
+- The MEANING should be deep, NOT the vocabulary.
+- Short words. Real feelings. Simple sentences. That's it.
+- Every single word should feel NATURAL, like someone actually said it out loud.
+
+### BANNED WORDS (ABSOLUTELY NEVER USE ANY OF THESE):
+ephemeral, transcend, paradox, dichotomy, juxtaposition, existential,
+ethereal, quintessential, metamorphosis, profound, inevitably, merely,
+whilst, henceforth, illuminate, encompass, paradigm, manifestation,
+resonate, trajectory, culmination, intrinsic, perpetual, abyss,
+clandestine, enigma, facade, harbinger, labyrinth, ominous,
+precipice, remnant, sovereign, ubiquitous, venerate, wield,
+unbeknownst, forsake, azure, luminous, celestial, edifice,
+oblivion, serenity, tempest, zenith, nadir, crucible, 
+orchestrate, juxtapose, articulate, unravel, mundane,
+mosaic, dissonance, convergence, visceral, poignant,
+embark, forge, ignite, propel, catalyst, beacon, vessel,
+tapestry, compass, anchor, realm, thrive, alchemize,
+amidst, midst, therein, wherein, bestow, behold
+
+### VIBE & FEELING RULES:
+- The quote should hit a NERVE - something deeply relatable to everyday life.
+- It should make someone stop scrolling and think "this is about ME".
+- The overall feeling should be POSITIVE and EMPOWERING, never depressing.
+- Think: wallpaper-worthy. Screenshot-worthy. Save-worthy.
+- The reader should want to come back every day for more.
+- Make them SMILE with how real and relatable it feels.
+- NOT negative, NOT hateful, NOT shaming anyone.
+- It should feel like that one line your best friend said that stuck with you forever.
 
 ### QUOTE RULES (VERY STRICT):
 - Generate a single continuous thought broken into {structure}.
 - The tone should be: {tone}.
-- Use ** around 1 or 2 high-impact words per line to make them bold.
+- Use ** around ONLY 1 or 2 high-impact words per line to make them bold.
 - Each line should be SHORT (5-9 words max per line).
-- The quote must feel FRESH and UNIQUE. Not generic motivation.
-- Think of an angle nobody talks about.
-- Example format (DO NOT copy this, create your own):
-"Sometimes the **hardest** paths,
-lead to the most **beautiful** destinations,
-especially when you walk **alone**."
+- The quote must feel FRESH and UNIQUE - not something you see on every page.
+- DO NOT just rephrase the theme. Create an ORIGINAL thought INSPIRED by it.
+- Think of an angle nobody else talks about.
+- Example quality level (DO NOT copy these, create something completely new):
+  "Everyone wants the **lifestyle**,
+  nobody wants the **late nights**,
+  that's why most people stay **average**."
 
 ### WHAT TO AVOID (VERY IMPORTANT):
 - Don't say "take the first step"
 - Don't say "start before you're ready"
 - Don't say "begin the journey"
 - Don't say "just start"
-- Don't give generic advice. Give a REALIZATION.
-- Don't repeat themes from common motivational pages.
-- Don't be preachy. Be observational. Be poetic. Be twisted.
+- Don't say "embrace the struggle"
+- Don't say "unlock your potential"
+- Don't say "ignite your passion"
+- Don't say "forge your path"
+- Don't use ANY motivational clichés that you see on every Instagram page
+- Don't be preachy or lecture-like
+- Don't be negative, dark, or morbid
+- Don't use complex metaphors that confuse people
+- Don't sound like a robot or AI - sound like a REAL HUMAN
+- Give a REALIZATION or OBSERVATION, not advice or instructions
 
 ### TITLE & METADATA RULES:
-- Catchy, urgency-based, under 100 characters.
-- 2-3 emojis, 1-2 hashtags.
-- Title should make someone STOP scrolling.
+- Catchy, makes someone STOP scrolling, under 100 characters.
+- 2-3 emojis, include #shorts hashtag.
+- Title should feel urgent and personal like it's speaking directly to the viewer.
 
 ### OUTPUT FORMAT (STRICT - 4 PARTS ONLY, NO extra formatting):
 QUOTE: [Your 3-4 line quote with **bold** markers]
-TITLE: [Catchy urgency title, emojis, hashtags]
-DESCRIPTION: [2-4 short lines. Add 5-6 hashtags.]
+TITLE: [Catchy urgency title with emojis and #shorts]
+DESCRIPTION: [2-4 short lines. Add 5-6 hashtags including #shorts]
 TAGS: [25-30 keywords separated by comma]
 """
 
