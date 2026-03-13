@@ -567,9 +567,47 @@ def upload_short(file_path, data):
         else:
             tag_list = raw_tags
 
-        tag_lower = [t.lower() for t in tag_list]
-        if "shorts" not in tag_lower:
-            tag_list.append("shorts")
+        # ============ 🔥 NEW TAG CLEANING LOGIC ============
+        cleaned_tags = []
+        seen = set()
+        for tag in tag_list:
+            # Remove special characters
+            tag = tag.strip()
+            tag = tag.replace('#', '')
+            tag = tag.replace('"', '')
+            tag = tag.replace("'", "")
+            tag = tag.replace('<', '')
+            tag = tag.replace('>', '')
+            tag = tag.replace('*', '')
+            tag = tag.strip()
+
+            # Skip empty or too long tags
+            if not tag or len(tag) > 100:
+                continue
+
+            # Skip duplicates (case-insensitive)
+            tag_lower = tag.lower()
+            if tag_lower in seen:
+                continue
+            seen.add(tag_lower)
+
+            cleaned_tags.append(tag)
+
+        # Ensure "shorts" is present
+        if "shorts" not in seen:
+            cleaned_tags.append("shorts")
+
+        # YouTube limit: total tags combined <= 500 characters
+        final_tags = []
+        total_length = 0
+        for tag in cleaned_tags:
+            if total_length + len(tag) + 1 > 490:  # safety margin
+                break
+            final_tags.append(tag)
+            total_length += len(tag) + 1
+
+        tag_list = final_tags
+        # ============ END TAG CLEANING ============
 
         title = data.get("TITLE", "Motivation 🔥 #shorts")
         if not title or title.strip() == "":
@@ -583,7 +621,8 @@ def upload_short(file_path, data):
 
         print("\n📋 UPLOADING WITH:")
         print(f"   Title: {title}")
-        print(f"   Tags: {tag_list[:10]}...")
+        print(f"   Tags: {tag_list}")
+        print(f"   Tags count: {len(tag_list)}, Total chars: {sum(len(t) for t in tag_list)}")
         print(f"   Description: {description[:60]}...")
         print()
 
