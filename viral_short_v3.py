@@ -567,11 +567,11 @@ def upload_short(file_path, data):
         else:
             tag_list = raw_tags
 
-        # ============ 🔥 NEW TAG CLEANING LOGIC ============
+        # ============ 🔥 BULLETPROOF TAG CLEANING ============
         cleaned_tags = []
         seen = set()
         for tag in tag_list:
-            # Remove special characters
+            # Remove ALL special characters
             tag = tag.strip()
             tag = tag.replace('#', '')
             tag = tag.replace('"', '')
@@ -579,17 +579,29 @@ def upload_short(file_path, data):
             tag = tag.replace('<', '')
             tag = tag.replace('>', '')
             tag = tag.replace('*', '')
+            tag = tag.replace('&', '')
+            tag = tag.replace('=', '')
+            tag = tag.replace('{', '')
+            tag = tag.replace('}', '')
+            tag = tag.replace('[', '')
+            tag = tag.replace(']', '')
             tag = tag.strip()
 
-            # Skip empty or too long tags
-            if not tag or len(tag) > 100:
+            # Force lowercase
+            tag = tag.lower()
+
+            # Only keep letters, numbers, spaces
+            tag = re.sub(r'[^a-z0-9 ]', '', tag)
+            tag = re.sub(r'\s+', ' ', tag).strip()
+
+            # Skip empty, too short, or too long
+            if not tag or len(tag) < 2 or len(tag) > 30:
                 continue
 
-            # Skip duplicates (case-insensitive)
-            tag_lower = tag.lower()
-            if tag_lower in seen:
+            # Skip duplicates
+            if tag in seen:
                 continue
-            seen.add(tag_lower)
+            seen.add(tag)
 
             cleaned_tags.append(tag)
 
@@ -597,16 +609,36 @@ def upload_short(file_path, data):
         if "shorts" not in seen:
             cleaned_tags.append("shorts")
 
-        # YouTube limit: total tags combined <= 500 characters
+        # ============ YOUTUBE-AWARE CHARACTER COUNTING ============
+        # YouTube counts: quotes around multi-word tags + commas between tags
+        # Total must be <= 500 characters
         final_tags = []
-        total_length = 0
+        total_youtube_length = 0
+        MAX_TAGS = 15  # Keep it safe, don't need 30+ tags
+
         for tag in cleaned_tags:
-            if total_length + len(tag) + 1 > 490:  # safety margin
+            if len(final_tags) >= MAX_TAGS:
                 break
+
+            # YouTube adds quotes around tags that contain spaces
+            tag_cost = len(tag) + (2 if ' ' in tag else 0)
+
+            # Comma separator between tags
+            separator_cost = 1 if final_tags else 0
+
+            # Check if adding this tag would exceed limit
+            if total_youtube_length + separator_cost + tag_cost > 450:  # safe margin
+                break
+
             final_tags.append(tag)
-            total_length += len(tag) + 1
+            total_youtube_length += separator_cost + tag_cost
 
         tag_list = final_tags
+
+        # Calculate actual YouTube char count for logging
+        yt_char_count = sum(
+            len(t) + (2 if ' ' in t else 0) for t in tag_list
+        ) + max(0, len(tag_list) - 1)
         # ============ END TAG CLEANING ============
 
         title = data.get("TITLE", "Motivation 🔥 #shorts")
@@ -622,7 +654,8 @@ def upload_short(file_path, data):
         print("\n📋 UPLOADING WITH:")
         print(f"   Title: {title}")
         print(f"   Tags: {tag_list}")
-        print(f"   Tags count: {len(tag_list)}, Total chars: {sum(len(t) for t in tag_list)}")
+        print(f"   Tags count: {len(tag_list)}")
+        print(f"   YouTube char count: {yt_char_count}/500")
         print(f"   Description: {description[:60]}...")
         print()
 
