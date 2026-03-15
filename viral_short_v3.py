@@ -340,16 +340,19 @@ TAGS: [25-30 keywords separated by comma]
         print(text)
         print("=" * 50)
 
+        # ============ 🔥 FIXED PARSER - START ============
         data = {
-            "QUOTE": "The journey feels **lonely**,\nbecause you are leveling **up**,\nand not everyone is meant to come **with** you.",
-            "TITLE": "You Need To Hear This 🔥💯 #shorts",
-            "DESCRIPTION": "A reminder you needed today.\n#growth #discipline #mindset #motivation #shorts",
-            "TAGS": "motivation, mindset, discipline, growth, success, shorts, self improvement"
+            "QUOTE": "",
+            "TITLE": "",
+            "DESCRIPTION": "",
+            "TAGS": ""
         }
 
         lines = text.split('\n')
         current_key = None
         temp_quote = []
+        desc_lines = []
+        tags_parts = []
 
         for line in lines:
             stripped = line.strip()
@@ -372,26 +375,44 @@ TAGS: [25-30 keywords separated by comma]
                 current_key = "DESCRIPTION"
                 val = extract_value(stripped, "DESCRIPTION")
                 if val:
-                    data["DESCRIPTION"] = val
+                    desc_lines.append(val)
             elif detected == "TAGS":
                 current_key = "TAGS"
                 val = extract_value(stripped, "TAGS")
                 if val:
-                    data["TAGS"] = val
+                    tags_parts.append(val)
             elif current_key == "QUOTE":
                 clean = stripped.replace('"', '').strip()
                 if clean:
                     temp_quote.append(clean)
+            elif current_key == "TITLE":
+                if not data["TITLE"]:
+                    data["TITLE"] = stripped.replace('"', '').strip()
             elif current_key == "DESCRIPTION":
-                data["DESCRIPTION"] += "\n" + stripped
+                desc_lines.append(stripped)
             elif current_key == "TAGS":
-                data["TAGS"] += ", " + stripped
+                tags_parts.append(stripped)
 
         if temp_quote:
             data["QUOTE"] = "\n".join(temp_quote)
+        if desc_lines:
+            data["DESCRIPTION"] = "\n".join(desc_lines)
+        if tags_parts:
+            data["TAGS"] = ", ".join(tags_parts)
+
+        # Fallbacks ONLY if parsing completely failed
+        if not data["QUOTE"]:
+            data["QUOTE"] = "The journey feels **lonely**,\nbecause you are leveling **up**,\nand not everyone is meant to come **with** you."
+        if not data["TITLE"]:
+            data["TITLE"] = "You Need To Hear This 🔥💯 #shorts"
+        if not data["DESCRIPTION"]:
+            data["DESCRIPTION"] = "A reminder you needed today.\n#growth #discipline #mindset #motivation #shorts"
+        if not data["TAGS"]:
+            data["TAGS"] = "motivation, mindset, discipline, growth, success, shorts, self improvement"
 
         if len(data["TITLE"]) > 100:
             data["TITLE"] = data["TITLE"][:97] + "..."
+        # ============ 🔥 FIXED PARSER - END ============
 
         print("\n✅ PARSED DATA:")
         print(f"   TITLE: {data['TITLE']}")
